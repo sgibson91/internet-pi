@@ -38,3 +38,11 @@
     - name: Set up Pi Hole.
       ansible.builtin.import_tasks: tasks/pi-hole.yml
       when: pihole_enable
+
+    - name: Create weekly container update cron job.
+      ansible.builtin.cron:
+        name: "Weekly docker compose update"
+        minute: "0"
+        hour: "0"
+        weekday: "1"
+        job: "{{ config_dir }}/update.sh"
