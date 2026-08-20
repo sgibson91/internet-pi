@@ -23,6 +23,20 @@
       when:
         - ansible_facts.os_family == "Archlinux"
 
+    - name: Ensure yq is installed (Debian).
+      ansible.builtin.apt:
+        name: yq
+        state: present
+      when:
+        - ansible_facts.os_family == "Debian"
+
+    - name: Ensure yq is installed (Archlinux).
+      community.general.pacman:
+        name: yq
+        state: present
+      when:
+        - ansible_facts.os_family == "Archlinux"
+
   handlers:
     - name: Include handlers.
       ansible.builtin.import_tasks: tasks/handlers.yml
@@ -38,3 +52,11 @@
     - name: Set up Pi Hole.
       ansible.builtin.import_tasks: tasks/pi-hole.yml
       when: pihole_enable
+
+    - name: Create weekly container update cron job.
+      ansible.builtin.cron:
+        name: "Weekly docker compose update"
+        minute: "0"
+        hour: "0"
+        weekday: "1"
+        job: "{{ config_dir }}/update.sh"
