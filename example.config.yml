@@ -31,20 +31,3 @@ prometheus_node_exporter_targets:
   - 'nodeexp:9100'
 prometheus_extra_scrape_configs: ''
 prometheus_tsdb_retention_time: 90d
-
-# Shelly Plug configuration. (Also requires `monitoring_enable`)
-shelly_plug_enable: false
-shelly_plug_hostname: my-shelly-plug-host-or-ip
-shelly_plug_http_username: username
-shelly_plug_http_password: "password"
-
-# AirGradient configuration. (Also requires `monitoring_enable`)
-airgradient_enable: false
-airgradient_sensors:
-  # ID Should be limited to no more than 38 characters, in the set a-z.
-  - id: livingroom
-    ip: "192.168.0.123"
-    port: 9925
-
-# Starlink configuration. (Also requires `monitoring_enable`)
-starlink_enable: false
